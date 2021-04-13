@@ -19,6 +19,37 @@ void printBuffer(uint8_t buffer[],int size) {
   fprintf(stdout,"\n"); 
 } 
 
+void checkLegalNameTest() {
+  char *name;
+  name = "shabi";
+  printf("%d\n", checkLegalName(name)); // should be 1
+
+  name = "shabi.txt";
+  printf("%d\n", checkLegalName(name)); // should be 1
+
+  name = ".txt";
+  printf("%d\n", checkLegalName(name)); // should be 0
+
+  name = "shabi.";
+  printf("%d\n", checkLegalName(name)); // should be 1
+
+  name = "shabi.txtt";
+  printf("%d\n", checkLegalName(name)); // should be 0
+
+  name = "shabi._t";
+  printf("%d\n", checkLegalName(name)); // should be 0
+
+  name = "__ts.txt";
+  printf("%d\n", checkLegalName(name)); // should be 0
+
+  name = "shabi..txt";
+  printf("%d\n", checkLegalName(name)); // should be 0
+
+  name = "shabiddddd.txt";
+  printf("%d\n", checkLegalName(name)); // should be 0
+
+}
+
 
 int main(int argc, char * argv[]) { 
   uint8_t buffer1[BLOCK_SIZE],buffer2[BLOCK_SIZE]; 
@@ -33,5 +64,12 @@ int main(int argc, char * argv[]) {
   fprintf(stdout,"cpmRename return code = %d,\n",cpmRename("mytestf","mytestv2.x")); 
   cpmDir(); 
   printFreeList(); 
+
+
+  // checkLegalNameTest();
+  // printf("%lu\n", sizeof(DirStructType) / sizeof(uint8_t));
+  return 1;
 }
+
+
 

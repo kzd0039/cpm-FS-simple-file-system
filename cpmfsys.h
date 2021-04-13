@@ -10,10 +10,10 @@
 #define debugging false
 
 typedef struct dirStruct { 
-uint8_t status; // 0xe5 = unused, 0-16 = user number
+uint8_t status; // 0xe5 = unused, 0-16 = user number, always 1 in this project
 char  name[9]; // no need to support attributes in msb  of bytes 0,1,2,7
 char  extension[4]; // no need to support attributes in msb  of bytes 0,1,2
-uint8_t XL; // see below for these 4  bytes' meaning
+uint8_t XL; 
 uint8_t BC; 
 uint8_t XH; 
 uint8_t RC;  
@@ -31,7 +31,7 @@ uint8_t blocks[BLOCKS_PER_EXTENT]; // array of disk sectors used
    
 */ 
 
-typedef uint8_t Extent[32];
+typedef uint8_t Extent[32]; //unused here
 
 //function to allocate memory for a DirStructType (see above), and populate it, given a
 //pointer to a buffer of memory holding the contents of disk block 0 (e), and an integer index
@@ -41,17 +41,18 @@ DirStructType *mkDirStruct(int index,uint8_t *e);
 
 // function to write contents of a DirStructType struct back to the specified index of the extent
 // in block of memory (disk block 0) pointed to by e
-void writeDirStruct(DirStructType *d, uint8_t index, uint8_t *e); 
+void writeDirStruct(DirStructType *d, uint8_t index, uint8_t *e);
 
 // populate the FreeList global data structure. freeList[i] == true means 
 // that block i of the disk is free. block zero is never free, since it holds
 // the directory. freeList[i] == false means the block is in use. 
 void makeFreeList(); 
+
+
 // debugging function, print out the contents of the free list in 16 rows of 16, with each 
 // row prefixed by the 2-digit hex address of the first block in that row. Denote a used
 // block with a *, a free block with a . 
-void printFreeList(); 
-
+void printFreeList();
 
 // internal function, returns -1 for illegal name or name not found
 // otherwise returns extent nunber 0-31

@@ -55,5 +55,4 @@ size_t readImage(char *fileName) {
   bytesRead = fread(disk,BLOCK_SIZE,NUM_BLOCKS,fp); 
   fclose(fp); 
   return bytesRead; 
-  
 } 
